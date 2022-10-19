@@ -13,8 +13,6 @@ app.use("/api/admin")
 app.use("/api/investor")
 app.use("/api/inventor")
 app.use("/api/organization")
-app.use("/api/investment")
-app.use("/api/invention")
 
 const PORT = process.env.PORT || 5000;
 
