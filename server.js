@@ -17,6 +17,9 @@ app.get("/", (req,res) => res.send("Hello World!"));
 // app.use("/api/investment")
 // app.use("/api/invention")
 
+//-------------------Invention---------------------
+app.use("/api/invention", require("./routes/invention.routes"));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

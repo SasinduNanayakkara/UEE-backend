@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-const dataSchema = new mongoose.Schema({
+const InventionSchema = new mongoose.Schema({
   inventionId: {
     required: true,
-    type: String,
+    type: Number,
   },
   inentorId: {
     required: true,
-    type: String,
+    type: Number,
   },
   title: {
     required: true,
@@ -51,4 +51,4 @@ const dataSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("invention", dataSchema);
+module.exports = mongoose.model("invention", InventionSchema);

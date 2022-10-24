@@ -1,10 +1,14 @@
-const router = require('express').Router();
+const express = require("express");
+const router = express.Router();
+
+// const {
+//     addInvention
+// } = require("../controllers/invention.controller");
 
 const {
     createInvention
-} = require("../controllers/invention.controller")
+    } = require("../controllers/invention.controller");
 
-router.post("/createInvention", createInvention);
+router.post('/createInvention', createInvention);
 
-
-module.export = router;
+module.exports = router;
