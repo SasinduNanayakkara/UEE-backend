@@ -1,8 +1,10 @@
 const router = require('express').Router();
 
-router.get("/", getAllAdmins);
-router.get("/:id", getAdminById);
-router.put("/:id", updateAdmin);
-router.delete("/:id", deleteAdmin);
+const {
+    createInvention
+} = require("../controllers/invention.controller")
+
+router.post("/createInvention", createInvention);
+
 
 module.export = router;
