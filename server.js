@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
 
 const app = express();
 app.use(cors());
@@ -8,7 +8,7 @@ app.use(express.json({ extended: false }));
 
 connectDB();
 
-app.get("/", (req,res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("Hello World!"));
 
 // app.use("/api/admin")
 // app.use("/api/investor")
@@ -19,6 +19,7 @@ app.get("/", (req,res) => res.send("Hello World!"));
 
 //-------------------Invention---------------------
 app.use("/api/invention", require("./routes/invention.routes"));
+app.use("/api/org", require("./routes/organization.routes"));
 
 const PORT = process.env.PORT || 5000;
 

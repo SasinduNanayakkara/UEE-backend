@@ -53,7 +53,7 @@ const organizationSchema = new mongoose.Schema({
     required: true,
   },
   approval: {
-    type: Boolean,
+    type: String,
     required: true,
   },
 });
