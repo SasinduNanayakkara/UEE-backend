@@ -10,27 +10,27 @@ const InvestorSchema = new mongoose.Schema({
         required: true
     },
     email: {
-        type: string,
+        type: String,
         required: true
     },
     password: {
-        type: string,
+        type: String,
         required: true,
     },
     nic: {
-        type: string,
+        type: String,
         required: true
     },
     nicImage: {
-        type: string,
+        type: String,
         required: false
     },
     address: {
-        type: string,
+        type: String,
         required: true
     },
     occupation: {
-        type: string,
+        type: String,
         required: true
     },
     approvalStatus: {
