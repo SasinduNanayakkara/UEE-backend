@@ -11,7 +11,7 @@ connectDB();
 app.get("/", (req, res) => res.send("Hello World!"));
 
 // app.use("/api/admin")
-// app.use("/api/investor")
+// app.use("/api/investor", investorRoutes);
 // app.use("/api/inventor")
 // app.use("/api/organization")
 // app.use("/api/investment")
@@ -20,6 +20,7 @@ app.get("/", (req, res) => res.send("Hello World!"));
 //-------------------Invention---------------------
 app.use("/api/invention", require("./routes/invention.routes"));
 app.use("/api/org", require("./routes/organization.routes"));
+app.use("/api/investor", require("./routes/investor.routes"));
 
 const PORT = process.env.PORT || 5000;
 
