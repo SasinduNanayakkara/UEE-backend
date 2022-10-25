@@ -1,5 +1,5 @@
 const investorModel = require("../models/investor.model");
-
+const bcrypt = require("bcrypt");
 const addInvestor = async (req, res) => {
     try {
         const {
@@ -15,9 +15,7 @@ const addInvestor = async (req, res) => {
             approvalStatus,
             investments,
         } = req.body;
-
         const encryptedPassword = await bcrypt.hash(password, 10);
-
         const newInvestor = new investorModel({
             name,
             username,
@@ -64,4 +62,62 @@ const getOneInvestor = async (req, res) => {
     catch (err) {
         res.status(500).json(err);
     }
+}
+
+const updateInvestor = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const {
+            name,
+            username,
+            email,
+            phone,
+            address,
+            nic,
+            nicImage,
+            occupation,
+            approvalStatus,
+            investments,
+        } = req.body;
+
+        const updatedInvestor = await investorModel.findByIdAndUpdate(id, {
+            name,
+            username,
+            email,
+            phone,
+            address,
+            nic,
+            nicImage,
+            occupation,
+            approvalStatus,
+            investments,
+        });
+        if (updatedInvestor) {
+            res.status(200).json(updatedInvestor);
+        }
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+const deleteInvestor = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const deletedInvestor = await investorModel.findByIdAndDelete(id);
+        if (deletedInvestor) {
+            res.status(200).json(deletedInvestor);
+        }
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+module.exports = {
+    addInvestor,
+    getInvestors,
+    getOneInvestor,
+    updateInvestor,
+    deleteInvestor,
 }
