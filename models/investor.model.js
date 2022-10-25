@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const InvestorSchema = new mongoose.Schema({
-    firstName: {
+    name: {
         type: String,
         required: true
     },
-    lastName: {
+    username: {
         type: String,
         required: true
     },
@@ -17,9 +17,29 @@ const InvestorSchema = new mongoose.Schema({
         type: string,
         required: true,
     },
-    phone: {
+    nic: {
         type: string,
         required: true
+    },
+    nicImage: {
+        type: string,
+        required: false
+    },
+    address: {
+        type: string,
+        required: true
+    },
+    occupation: {
+        type: string,
+        required: true
+    },
+    approvalStatus: {
+        type: Boolean,
+    },
+    investments: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Investment',
+        required: false
     }
 }, { timestamps: true });
 
