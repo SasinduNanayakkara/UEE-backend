@@ -114,10 +114,25 @@ const deleteInvestor = async (req,res) => {
     }
 }
 
+const addInvention = async (req, res) => {
+    try {
+        const investor = req.params.id;
+        const inventionId = req.body.inventionId;
+        const updatedInvestor = await investorModel.findByIdAndUpdate(investor, {inventionId});
+        if (updatedInvestor) {
+            res.status(200).json(updatedInvestor);
+        }
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+}
+
 module.exports = {
     addInvestor,
     getInvestors,
     getOneInvestor,
     updateInvestor,
     deleteInvestor,
+    addInvention,
 }
