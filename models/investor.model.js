@@ -36,11 +36,6 @@ const InvestorSchema = new mongoose.Schema({
     approvalStatus: {
         type: Boolean,
     },
-    investments: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Investment',
-        required: false
-    }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Investor', InvestorSchema);
+module.exports = Investor = mongoose.model('Investor', InvestorSchema);
