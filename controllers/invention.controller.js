@@ -1,11 +1,11 @@
-var express = require('express');
-const { isValidObjectId } = require('mongoose');
+var express = require("express");
+const { isValidObjectId } = require("mongoose");
 var router = express.Router();
-var mongoose = require('mongoose');
-const InventionModel = require('../models/invention');
+var mongoose = require("mongoose");
+const InventionModel = require("../models/invention");
 
 //Add Inventions
-const createInvention = (req, res, next)=>{
+const createInvention = (req, res, next) => {
 
     const Invention= new InventionModel({
         invetorId : req.query.invetorId,
@@ -19,26 +19,22 @@ const createInvention = (req, res, next)=>{
         // organization : req.body.organization,
         // investment : req.body.investment,
         // rate : 'like'
-    });
 
-    try{
-        Invention.save();
-        res.status(200).json(
-          {
-            succuss: true,
-            message: 'Insertion succussfull',
-            payload: {}
-          }
-        );
-      }
-      catch (error) {
-        res.status(400).json(
-          {
-            message: 'Cannot add data right now!'
-          }
-        );
-      }
+  try {
+    Invention.save();
+    res.status(200).json({
+      succuss: true,
+      message: "Insertion succussfull",
+      payload: {},
+
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Cannot add data right now!",
+    });
+  }
 };
+
 
 //update Invention
 // const updateInvention = (res,req,next)=>{
@@ -91,3 +87,4 @@ module.exports = {
     getAllInventions,
     deleteInvention
   }
+
