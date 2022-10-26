@@ -80,8 +80,14 @@ const getAllInventions = (req,res,next) =>{
   })
 } 
 
+//Delete Invention
+const deleteInvention = (req,res,next ) => {
+  
+}
+
 module.exports = {
     createInvention,
     // updateInvention,
-    getAllInventions
+    getAllInventions,
+    deleteInvention
   }
