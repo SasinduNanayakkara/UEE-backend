@@ -8,7 +8,7 @@ const InventionModel = require('../models/invention');
 const createInvention = (req, res, next)=>{
 
     const Invention= new InventionModel({
-        // inentorId : req.query.inentorId,
+        invetorId : req.query.invetorId,
         title : req.body.title,
         description : req.body.description,
         // image : req.body.image,

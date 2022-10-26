@@ -2,11 +2,27 @@ const mongoose = require("mongoose");
 
 const InventorSchema = new mongoose.Schema({
 
-    username:{
+    username : {
         require : true,
         type : String
     },
-    username:{
+    email : {
+        require : true,
+        type : String
+    },
+    // password : {
+    //     require : true,
+    //     type : String
+    // },
+    NIC : {
+        require : true,
+        type : String
+    },
+    // NICImage : {
+    //     require : true,
+    //     type : String
+    // },
+    c : {
         require : true,
         type : String
     }
