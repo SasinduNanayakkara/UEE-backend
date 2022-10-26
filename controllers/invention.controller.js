@@ -6,20 +6,19 @@ const InventionModel = require("../models/invention");
 
 //Add Inventions
 const createInvention = (req, res, next) => {
-  const Invention = new InventionModel({
-    inventionId: req.body.inventionId,
-    inentorId: req.query.inentorId,
-    title: req.body.title,
-    description: req.body.description,
-    image: req.body.image,
-    date: req.body.date,
-    goal: req.body.goal,
-    currentInvestment: req.body.currentInvestment,
-    approval: "Pending",
-    organization: req.body.organization,
-    investment: req.body.investment,
-    rate: "like",
-  });
+
+    const Invention= new InventionModel({
+        invetorId : req.query.invetorId,
+        title : req.body.title,
+        description : req.body.description,
+        // image : req.body.image,
+        // date : req.body.date,
+        // goal : req.body.goal,
+        // currentInvestment : req.body.currentInvestment,
+        // approval : 'Pending',
+        // organization : req.body.organization,
+        // investment : req.body.investment,
+        // rate : 'like'
 
   try {
     Invention.save();
@@ -27,6 +26,7 @@ const createInvention = (req, res, next) => {
       succuss: true,
       message: "Insertion succussfull",
       payload: {},
+
     });
   } catch (error) {
     res.status(400).json({
@@ -34,6 +34,57 @@ const createInvention = (req, res, next) => {
     });
   }
 };
+
+
+//update Invention
+// const updateInvention = (res,req,next)=>{
+
+//     InventionModel.updateOne({ _id : req.query.id },
+//     {
+//       $set: {
+//         title: req.body.title,
+//         description: req.body.description,
+//         // "image": req.body.image,
+//         // "date": req.body.date,
+//         // "goal": req.body.goal,
+//         // "currentInvestment": req.body.currentInvestment
+//       }
+//     })
+//     .then((result) => {
+     
+//       res.json({
+//         success: true,
+//         message: 'Update sucessful',
+//         payload: result
+//       })
+//     }).catch((e) => {
+//       res.status(400).json({ success: false, message: e.message, payload: {} })
+//     })  
+// };
+
+//get all inventions
+const getAllInventions = (req,res,next) =>{
+  InventionModel.find({invetorId : req.query.invetorId})
+  .then((Invention)=>{
+    res.status(200).json({
+      success: true,
+      message: 'Read successfuly',
+      Invention
+    })
+  }).catch((e)=>{
+    res.status(400).json({success:false, message: e.message, payload: {}})
+  })
+} 
+
+//Delete Invention
+const deleteInvention = (req,res,next ) => {
+  
+}
+
 module.exports = {
-  createInvention,
-};
+    createInvention,
+    // updateInvention,
+    getAllInventions,
+    deleteInvention
+  }
+
