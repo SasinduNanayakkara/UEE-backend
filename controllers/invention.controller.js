@@ -40,13 +40,14 @@ const createInvention = (req, res, next)=>{
       }
 };
 
+//update Invention
 // const updateInvention = (res,req,next)=>{
 
 //     InventionModel.updateOne({ _id : req.query.id },
 //     {
 //       $set: {
-//         "title": req.body.title,
-//         "description": req.body.description,
+//         title: req.body.title,
+//         description: req.body.description,
 //         // "image": req.body.image,
 //         // "date": req.body.date,
 //         // "goal": req.body.goal,
@@ -67,7 +68,7 @@ const createInvention = (req, res, next)=>{
 
 //get all inventions
 const getAllInventions = (req,res,next) =>{
-  InventionModel.find()
+  InventionModel.find({invetorId : req.query.invetorId})
   .then((Invention)=>{
     res.status(200).json({
       success: true,
@@ -81,6 +82,6 @@ const getAllInventions = (req,res,next) =>{
 
 module.exports = {
     createInvention,
-    // updateInvention
+    // updateInvention,
     getAllInventions
   }
