@@ -9,8 +9,8 @@ const {
 } = require("../controllers/invention.controller");
 
 router.post("/createInvention", createInvention);
-// router.put('/updateInvention', updateInvention);
+router.put('/updateInvention', updateInvention);
 router.get("/getAllInventions", getAllInventions);
-router.get("/deleteInvention", deleteInvention);
+router.delete("/deleteInvention", deleteInvention);
 
 module.exports = router;
