@@ -1,11 +1,12 @@
-var express = require("express");
-const { isValidObjectId } = require("mongoose");
+var express = require('express');
+const bcrypt = require("bcrypt");
+const { isValidObjectId } = require('mongoose');
 var router = express.Router();
-var mongoose = require("mongoose");
-const InventionModel = require("../models/invention");
+var mongoose = require('mongoose');
+const InventionModel = require('../models/invention');
 
 //Add Inventions
-const createInvention = (req, res, next) => {
+const createInvention = (req, res, next)=>{
 
     const Invention= new InventionModel({
         invetorId : req.query.invetorId,
@@ -19,22 +20,26 @@ const createInvention = (req, res, next) => {
         // organization : req.body.organization,
         // investment : req.body.investment,
         // rate : 'like'
-
-  try {
-    Invention.save();
-    res.status(200).json({
-      succuss: true,
-      message: "Insertion succussfull",
-      payload: {},
-
     });
-  } catch (error) {
-    res.status(400).json({
-      message: "Cannot add data right now!",
-    });
-  }
+
+    try{
+        Invention.save();
+        res.status(200).json(
+          {
+            succuss: true,
+            message: 'Insertion succussfull',
+            payload: {}
+          }
+        );
+      }
+      catch (error) {
+        res.status(400).json(
+          {
+            message: 'Cannot add data right now!'
+          }
+        );
+      }
 };
-
 
 //update Invention
 const updateInvention = (res,req,next)=>{
@@ -77,14 +82,23 @@ const getAllInventions = (req,res,next) =>{
 } 
 
 //Delete Invention
-const deleteInvention = (req,res,next ) => {
+const deleteInvention = async (req,res) => {
+
+  try {
+    const deletedInvention = await InventionModel.findByIdAndDelete();
+    if (deletedInvention) {
+        res.status(200).json(deletedInvention);
+    }
+}
+catch (err) {
+    res.status(500).json(err);
+}
   
 }
 
 module.exports = {
     createInvention,
-    // updateInvention,
+    updateInvention,
     getAllInventions,
     deleteInvention
   }
-
