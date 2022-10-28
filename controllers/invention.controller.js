@@ -41,30 +41,30 @@ const createInvention = (req, res, next)=>{
 };
 
 //update Invention
-// const updateInvention = (res,req,next)=>{
+const updateInvention = (res,req,next)=>{
 
-//     InventionModel.updateOne({ _id : req.query.id },
-//     {
-//       $set: {
-//         title: req.body.title,
-//         description: req.body.description,
-//         // "image": req.body.image,
-//         // "date": req.body.date,
-//         // "goal": req.body.goal,
-//         // "currentInvestment": req.body.currentInvestment
-//       }
-//     })
-//     .then((result) => {
+    InventionModel.updateOne({ _id : req.query.id },
+    {
+      $set: {
+        title: req.body.title,
+        description: req.body.description,
+        // "image": req.body.image,
+        // "date": req.body.date,
+        // "goal": req.body.goal,
+        // "currentInvestment": req.body.currentInvestment
+      }
+    })
+    .then((result) => {
      
-//       res.json({
-//         success: true,
-//         message: 'Update sucessful',
-//         payload: result
-//       })
-//     }).catch((e) => {
-//       res.status(400).json({ success: false, message: e.message, payload: {} })
-//     })  
-// };
+      res.json({
+        success: true,
+        message: 'Update sucessful',
+        payload: result
+      })
+    }).catch((e) => {
+      res.status(400).json({ success: false, message: e.message, payload: {} })
+    })  
+};
 
 //get all inventions
 const getAllInventions = (req,res,next) =>{
