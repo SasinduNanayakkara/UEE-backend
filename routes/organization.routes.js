@@ -1,9 +1,12 @@
-const router = require('express').Router();
+const express = require("express");
+const router = express.Router();
 
-router.post("/", createOrg);
-router.get("/", getAllOrgs);
-router.get("/:id", getOrgById);
-router.put("/:id", updateOrg);
-router.delete("/:id", deleteOrg);
+const { registerOrg } = require("../controllers/organization.controller");
 
-module.export = router;
+router.post("/", registerOrg);
+// router.get("/", getAllOrgs);
+// router.get("/:id", getOrgById);
+// router.put("/:id", updateOrg);
+// router.delete("/:id", deleteOrg);
+
+module.exports = router;
