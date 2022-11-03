@@ -7,9 +7,9 @@ const createInventor = (req, res, next) => {
   const Inventor = new InventorModel({
     username: req.body.username,
     email: req.body.email,
-    password : req.body.password,
+    // password : req.body.password,
     NIC : req.body.NIC,
-    NICImage : req.body.NICImage,
+    // NICImage : req.body.NICImage,
     name : req.body.name
   });
 
