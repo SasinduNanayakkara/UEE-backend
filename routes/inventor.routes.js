@@ -1,11 +1,12 @@
 const router = require('express').Router();
 
 const {
-    createInventor
+    createInventor,
+    getInventorDetails
     } = require("../controllers/inventor.controller");
 
 router.post('/createInventor', createInventor);
-// router.get("/", getAllInventors);
+router.get("/getInventorDetails", getInventorDetails);
 // router.get("/:id", getInventorById);
 // router.put("/:id", updateInventor);
 // router.delete("/:id", deleteInventor);

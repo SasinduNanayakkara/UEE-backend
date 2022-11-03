@@ -22,7 +22,7 @@ const InventorSchema = new mongoose.Schema({
     //     require : true,
     //     type : String
     // },
-    c : {
+    name : {
         require : true,
         type : String
     }

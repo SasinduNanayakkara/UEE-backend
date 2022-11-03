@@ -8,9 +8,9 @@ const createInventor = (req, res, next) => {
     username: req.body.username,
     email: req.body.email,
     // password : req.body.password,
-    NIC : req.body.NIC,
+    NIC: req.body.NIC,
     // NICImage : req.body.NICImage,
-    name : req.body.name
+    name: req.body.name,
   });
 
   try {
@@ -27,6 +27,20 @@ const createInventor = (req, res, next) => {
   }
 };
 
+const getInventorDetails = (req, res) => {
+  InventorModel.find({_id:req.query.id}).then((Inventor) => {
+    res.status(200).json({
+      success: true,
+        message: "Read successfuly",
+        Inventor,
+    });
+  })
+  .catch((e) => {
+    res.status(400).json({ success: false, message: e.message, payload: {} });
+  });
+};
+
 module.exports = {
   createInventor,
+  getInventorDetails,
 };
