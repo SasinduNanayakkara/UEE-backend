@@ -4,6 +4,7 @@ const { isValidObjectId } = require("mongoose");
 var router = express.Router();
 var mongoose = require("mongoose");
 const InventionModel = require("../models/invention");
+const investmentsModel =require("../models/investments.model")
 
 //Add Inventions
 const createInvention = (req, res, next) => {
@@ -57,8 +58,8 @@ const updateInvention = async (req, res, next) => {
     });
 };
 
-//get all inventions
-const getAllInventions = (req, res, next) => {
+//get all inventions by ID
+const getAllInventionsByID = (req, res, next) => {
   InventionModel.find({ inventorId: req.query.inventorId })
     .then((Invention) => {
       res.status(200).json({
@@ -85,9 +86,40 @@ const deleteInvention = async (req, res) => {
   }
 };
 
+//getAllInventions
+const getAllInventions = (req, res) => {
+  InventionModel.find()
+    .then((inventions) => {
+      res.status(200).json({
+        success: true,
+        message: "Read successfuly",
+        inventions,
+      });
+    })
+    .catch((e) => {
+      res.status(400).json({ success: false, message: e.message, payload: {} });
+    });
+};
+
+//get all investment by invention id
+const getAllInvestment = (req,res) => {
+  investmentsModel.find({inventionId:req.query.id}).then((Investment)=>{
+    res.status(200).json({
+      success: true,
+      message: "Read successfuly",
+      Investment,
+    });
+  })
+  .catch((e) => {
+    res.status(400).json({ success: false, message: e.message, payload: {} });
+  });
+}
+
 module.exports = {
   createInvention,
   updateInvention,
+  getAllInventionsByID,
   getAllInventions,
   deleteInvention,
+  getAllInvestment
 };
