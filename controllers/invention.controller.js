@@ -1,104 +1,125 @@
-var express = require('express');
+var express = require("express");
 const bcrypt = require("bcrypt");
-const { isValidObjectId } = require('mongoose');
+const { isValidObjectId } = require("mongoose");
 var router = express.Router();
-var mongoose = require('mongoose');
-const InventionModel = require('../models/invention');
+var mongoose = require("mongoose");
+const InventionModel = require("../models/invention");
+const investmentsModel =require("../models/investments.model")
 
 //Add Inventions
-const createInvention = (req, res, next)=>{
+const createInvention = (req, res, next) => {
+  const Invention = new InventionModel({
+    inventorId: req.query.inventorId,
+    title: req.body.title,
+    description: req.body.description,
+    // image : req.body.image,
+    // date : req.body.date,
+    // goal : req.body.goal,
+    // currentInvestment : req.body.currentInvestment,
+    // approval : 'Pending',
+    // organization : req.body.organization,
+    // investment : req.body.investment,
+    // rate : 'like'
+  });
 
-    const Invention= new InventionModel({
-        invetorId : req.query.invetorId,
-        title : req.body.title,
-        description : req.body.description,
-        // image : req.body.image,
-        // date : req.body.date,
-        // goal : req.body.goal,
-        // currentInvestment : req.body.currentInvestment,
-        // approval : 'Pending',
-        // organization : req.body.organization,
-        // investment : req.body.investment,
-        // rate : 'like'
+  try {
+    Invention.save();
+    res.status(200).json({
+      succuss: true,
+      message: "Insertion succussfull",
+      payload: {},
     });
-
-    try{
-        Invention.save();
-        res.status(200).json(
-          {
-            succuss: true,
-            message: 'Insertion succussfull',
-            payload: {}
-          }
-        );
-      }
-      catch (error) {
-        res.status(400).json(
-          {
-            message: 'Cannot add data right now!'
-          }
-        );
-      }
+  } catch (error) {
+    res.status(400).json({
+      message: "Cannot add data right now!",
+    });
+  }
 };
 
 //update Invention
-const updateInvention = (res,req,next)=>{
-
-    InventionModel.updateOne({ _id : req.query.id },
-    {
-      $set: {
-        title: req.body.title,
-        description: req.body.description,
-        // "image": req.body.image,
-        // "date": req.body.date,
-        // "goal": req.body.goal,
-        // "currentInvestment": req.body.currentInvestment
-      }
-    })
+const updateInvention = async (req, res, next) => {
+  InventionModel.updateOne(
+    { _id: req.query.id },
+    { $set: { title: req.body.title, description: req.body.description } }
+  )
     .then((result) => {
-     
       res.json({
         success: true,
-        message: 'Update sucessful',
-        payload: result
-      })
-    }).catch((e) => {
-      res.status(400).json({ success: false, message: e.message, payload: {} })
-    })  
+        message: "Updated sucessful",
+        payload: {},
+      });
+    })
+    .catch((e) => {
+      res.status(400).json({
+        success: false,
+        message: e.message,
+        payload: {},
+      });
+    });
 };
 
-//get all inventions
-const getAllInventions = (req,res,next) =>{
-  InventionModel.find({invetorId : req.query.invetorId})
-  .then((Invention)=>{
-    res.status(200).json({
-      success: true,
-      message: 'Read successfuly',
-      Invention
+//get all inventions by ID
+const getAllInventionsByID = (req, res, next) => {
+  InventionModel.find({ inventorId: req.query.inventorId })
+    .then((Invention) => {
+      res.status(200).json({
+        success: true,
+        message: "Read successfuly",
+        Invention,
+      });
     })
-  }).catch((e)=>{
-    res.status(400).json({success:false, message: e.message, payload: {}})
-  })
-} 
+    .catch((e) => {
+      res.status(400).json({ success: false, message: e.message, payload: {} });
+    });
+};
 
 //Delete Invention
-const deleteInvention = async (req,res) => {
-
+const deleteInvention = async (req, res) => {
   try {
-    const deletedInvention = await InventionModel.findByIdAndDelete();
+    const id = req.query.id;
+    const deletedInvention = await InventionModel.findByIdAndDelete(id);
     if (deletedInvention) {
-        res.status(200).json(deletedInvention);
+      res.status(200).json(deletedInvention);
     }
-}
-catch (err) {
+  } catch (err) {
     res.status(500).json(err);
-}
-  
+  }
+};
+
+//getAllInventions
+const getAllInventions = (req, res) => {
+  InventionModel.find()
+    .then((inventions) => {
+      res.status(200).json({
+        success: true,
+        message: "Read successfuly",
+        inventions,
+      });
+    })
+    .catch((e) => {
+      res.status(400).json({ success: false, message: e.message, payload: {} });
+    });
+};
+
+//get all investment by invention id
+const getAllInvestment = (req,res) => {
+  investmentsModel.find({inventionId:req.query.id}).then((Investment)=>{
+    res.status(200).json({
+      success: true,
+      message: "Read successfuly",
+      Investment,
+    });
+  })
+  .catch((e) => {
+    res.status(400).json({ success: false, message: e.message, payload: {} });
+  });
 }
 
 module.exports = {
-    createInvention,
-    updateInvention,
-    getAllInventions,
-    deleteInvention
-  }
+  createInvention,
+  updateInvention,
+  getAllInventionsByID,
+  getAllInventions,
+  deleteInvention,
+  getAllInvestment
+};
