@@ -9,6 +9,7 @@ const investmentsModel =require("../models/investments.model")
 //Add Inventions
 const createInvention = (req, res, next) => {
   const Invention = new InventionModel({
+    inventionId: req.body.inventionId,
     inventorId: req.query.inventorId,
     title: req.body.title,
     description: req.body.description,
@@ -26,7 +27,7 @@ const createInvention = (req, res, next) => {
     Invention.save();
     res.status(200).json({
       succuss: true,
-      message: "Insertion succussfull",
+      message: "Insertion successfully",
       payload: {},
     });
   } catch (error) {
