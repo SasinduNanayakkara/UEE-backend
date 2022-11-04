@@ -23,6 +23,9 @@ app.use("/api/org", require("./routes/organization.routes"));
 app.use("/api/investor", require("./routes/investor.routes"));
 app.use("/api/investment", require("./routes/investments.routes"));
 
+//-------------------Inventor---------------------
+app.use("/api/inventor", require("./routes/inventor.routes"));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

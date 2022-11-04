@@ -1,9 +1,14 @@
 const router = require('express').Router();
 
-router.post("/", createInventor);
-router.get("/", getAllInventors);
-router.get("/:id", getInventorById);
-router.put("/:id", updateInventor);
-router.delete("/:id", deleteInventor);
+const {
+    createInventor,
+    getInventorDetails
+    } = require("../controllers/inventor.controller");
 
-module.export = router;
+router.post('/createInventor', createInventor);
+router.get("/getInventorDetails", getInventorDetails);
+// router.get("/:id", getInventorById);
+// router.put("/:id", updateInventor);
+// router.delete("/:id", deleteInventor);
+
+module.exports = router;
