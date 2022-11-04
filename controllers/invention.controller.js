@@ -8,7 +8,7 @@ const InventionModel = require("../models/invention");
 const createInvention = (req, res, next) => {
   const Invention = new InventionModel({
     inventionId: req.body.inventionId,
-    inentorId: req.query.inentorId,
+    inventorId: req.query.inventorId,
     title: req.body.title,
     description: req.body.description,
     image: req.body.image,
@@ -25,7 +25,7 @@ const createInvention = (req, res, next) => {
     Invention.save();
     res.status(200).json({
       succuss: true,
-      message: "Insertion succussfull",
+      message: "Insertion successfully",
       payload: {},
     });
   } catch (error) {
