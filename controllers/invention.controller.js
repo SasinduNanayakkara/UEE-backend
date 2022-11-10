@@ -12,14 +12,14 @@ const createInvention = (req, res, next) => {
     inventorId: req.query.inventorId,
     title: req.body.title,
     description: req.body.description,
-    // image : req.body.image,
-    // date : req.body.date,
-    // goal : req.body.goal,
-    // currentInvestment : req.body.currentInvestment,
-    // approval : 'Pending',
-    // organization : req.body.organization,
-    // investment : req.body.investment,
-    // rate : 'like'
+    image : req.body.image,
+    date : req.body.date,
+    goal : req.body.goal,
+    currentInvestment : req.body.currentInvestment,
+    approval : 'Pending',
+    organization : req.body.organization,
+    investment : req.body.investment,
+    rate : 'like'
   });
 
   try {
