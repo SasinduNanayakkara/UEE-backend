@@ -31,25 +31,47 @@ const registerOrg = (req, res, next) => {
 };
 const deleteOrg = (req, res, next) => {};
 
-const addToOrg =  (req,res) => {
+const addToOrg = async (req, res) => {
   try {
     const orgId = req.params.id;
     const inventionId = req.body.inventionId;
-    console.log(inventionId);
-    const updatedOrg = organizationModel.update({_id: orgId}, {
-      $push: {requested: inventionId},
-    });
+    const updatedOrg = await organizationModel.update(
+      { _id: orgId },
+      {
+        $push: { added: inventionId },
+      }
+    );
     if (updatedOrg) {
       res.status(200).json(updatedOrg);
     }
-  }
-  catch (err) {
+  } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
-}
+};
+
+const requestToOrg = async (req, res) => {
+  try {
+    const orgId = req.params.id;
+    const inventionId = req.body.inventionId;
+    const updatedOrg = await organizationModel.update(
+      { _id: orgId },
+      {
+        $push: { requested: inventionId },
+      }
+    );
+    if (updatedOrg) {
+      res.status(200).json(updatedOrg);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
 
 module.exports = {
   registerOrg,
   deleteOrg,
   addToOrg,
+  requestToOrg,
 };
