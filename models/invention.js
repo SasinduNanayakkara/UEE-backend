@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const InventionSchema = new mongoose.Schema({
-  invetorId: {
+  inventorId: {
     required: true,
     type: String,
   },

@@ -1,4 +1,5 @@
 var express = require("express");
+const organizationModel = require("../models/organization.model");
 const orgModel = require("../models/organization.model");
 
 const registerOrg = (req, res, next) => {
@@ -28,7 +29,25 @@ const registerOrg = (req, res, next) => {
 };
 const deleteOrg = (req, res, next) => {};
 
+const addToOrg =  (req,res) => {
+  try {
+    const orgId = req.params.id;
+    const inventionId = req.body.inventionId;
+    const updatedOrg = organizationModel.findByIdAndUpdate(orgId, {
+      added: added.push(inventionId),
+    });
+    console.log(updatedOrg);
+    if (updatedOrg) {
+      res.status(200).json(updatedOrg);
+    }
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+}
+
 module.exports = {
   registerOrg,
   deleteOrg,
+  addToOrg,
 };

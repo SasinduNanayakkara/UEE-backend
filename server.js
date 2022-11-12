@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const socket = require("socket.io");
 
 const app = express();
 app.use(cors());
@@ -28,4 +29,21 @@ app.use("/api/inventor", require("./routes/inventor.routes"));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+const io = socket(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        credentials: true,
+    }
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+    socket.on("send-msg", data => {
+        const sendUserSocket = onlineUsers.get(data.to);
+        if (sendUserSocket) {
+            socket.to(sendUserSocket).emit("receive-msg", data.message);
+        }
+    });
+});
