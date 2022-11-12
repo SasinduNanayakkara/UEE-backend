@@ -135,6 +135,36 @@ const getOrgById = async (req, res) => {
   }
 };
 
+const getRequests = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const org = await organizationModel
+      .findOne({ _id: id })
+      .populate("requested")
+      .select("requested");
+    if (org) {
+      res.status(200).json({ org });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const getAdded = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const org = await organizationModel
+      .findOne({ _id: id })
+      .populate("added")
+      .select("added");
+    if (org) {
+      res.status(200).json({ org });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
 module.exports = {
   registerOrg,
   deleteOrg,
@@ -144,4 +174,6 @@ module.exports = {
   rejectedToOrg,
   getAllOrgs,
   getOrgById,
+  getRequests,
+  getAdded,
 };
