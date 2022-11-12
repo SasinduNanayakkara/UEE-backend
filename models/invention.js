@@ -2,21 +2,21 @@ const mongoose = require("mongoose");
 
 const InventionSchema = new mongoose.Schema({
   inventorId: {
-    required: true,
     type: String,
+    required: true,
   },
   title: {
-    required: true,
     type: String,
+    required: true,
   },
   description: {
-    required: true,
     type: String,
+    required: true,
   },
-  // image: {
-  //   required: true,
-  //   type: String,
-  // },
+  image: {
+    type: String,
+    required: true,
+  },
   // date: {
   //   required: true,
   //   type: Number,
