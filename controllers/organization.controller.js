@@ -69,9 +69,30 @@ const requestToOrg = async (req, res) => {
   }
 };
 
+const approvalToOrg = async (req, res) => {
+  try {
+    const orgId = req.params.id;
+    const inventionId = req.body.inventionId;
+    const updatedOrg = await organizationModel.update(
+      { _id: orgId },
+      {
+        $push: { added: inventionId },
+        $pull: { requested: { $in: inventionId } },
+      }
+    );
+    if (updatedOrg) {
+      res.status(200).json(updatedOrg);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   registerOrg,
   deleteOrg,
   addToOrg,
   requestToOrg,
+  approvalToOrg,
 };
