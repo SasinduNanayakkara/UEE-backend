@@ -15,12 +15,12 @@ const addInvestor = async (req, res) => {
             approvalStatus,
             investments,
         } = req.body;
-        const encryptedPassword = await bcrypt.hash(password, 10);
+        // const encryptedPassword = await bcrypt.hash(password, 10);
         const newInvestor = new investorModel({
             name,
             username,
             email,
-            password: encryptedPassword,
+            password,
             phone,
             address,
             nic,

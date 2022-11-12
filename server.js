@@ -24,7 +24,8 @@ app.use("/api/invention", require("./routes/invention.routes"));
 app.use("/api/org", require("./routes/organization.routes"));
 app.use("/api/investor", require("./routes/investor.routes"));
 app.use("/api/investment", require("./routes/investments.routes"));
-
+// app.use("/api/admin", require("./routes/admin.routes"));
+app.use("/api/login", require("./routes/login.route"));
 //-------------------Inventor---------------------
 app.use("/api/inventor", require("./routes/inventor.routes"));
 
