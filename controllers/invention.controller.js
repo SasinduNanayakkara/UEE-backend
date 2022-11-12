@@ -7,14 +7,14 @@ const investmentsModel =require("../models/investments.model")
 const fs = require('fs');
 //Add Inventions
 const createInvention = (req, res, next) => {
-  const ImageUrl = fs.readFileSync(req.image, { encoding: "base64" });
-  console.log(ImageUrl);
+  // const ImageUrl = fs.readFileSync(req.image, { encoding: "base64" });
+  // console.log(ImageUrl);
   const Invention = new InventionModel({
     inventionId: req.body.inventionId,
     inventorId: req.query.inventorId,
     title: req.body.title,
     description: req.body.description,
-    image : ImageUrl,
+    image,
     // date : req.body.date,
     // goal : req.body.goal,
     // currentInvestment : req.body.currentInvestment,
