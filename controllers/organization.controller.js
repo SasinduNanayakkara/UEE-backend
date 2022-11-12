@@ -150,6 +150,21 @@ const getRequests = async (req, res) => {
   }
 };
 
+const getAdded = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const org = await organizationModel
+      .findOne({ _id: id })
+      .populate("added")
+      .select("added");
+    if (org) {
+      res.status(200).json({ org });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
 module.exports = {
   registerOrg,
   deleteOrg,
@@ -160,4 +175,5 @@ module.exports = {
   getAllOrgs,
   getOrgById,
   getRequests,
+  getAdded,
 };
