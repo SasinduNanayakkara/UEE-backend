@@ -1,12 +1,23 @@
 const express = require("express");
 const router = express.Router();
 
-const { registerOrg, addToOrg } = require("../controllers/organization.controller");
+const {
+  registerOrg,
+  addToOrg,
+  requestToOrg,
+  approvalToOrg,
+  rejectedToOrg,
+  getAllOrgs,
+  getOrgById,
+} = require("../controllers/organization.controller");
 
 router.post("/", registerOrg);
-router.put("/:id", addToOrg);
-// router.get("/", getAllOrgs);
-// router.get("/:id", getOrgById);
+router.put("/add/:id", addToOrg);
+router.put("/request/:id", requestToOrg);
+router.put("/approval/:id", approvalToOrg);
+router.put("/rejected/:id", rejectedToOrg);
+router.get("/", getAllOrgs);
+router.get("/:id", getOrgById);
 // router.put("/:id", updateOrg);
 // router.delete("/:id", deleteOrg);
 
