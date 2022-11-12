@@ -108,6 +108,21 @@ const rejectedToOrg = async (req, res) => {
   }
 };
 
+const getAllOrgs = (req, res) => {
+  organizationModel
+    .find()
+    .then((orgs) => {
+      res.status(200).json({
+        success: true,
+        message: "Read successfuly",
+        orgs,
+      });
+    })
+    .catch((e) => {
+      res.status(400).json({ success: false, message: e.message, payload: {} });
+    });
+};
+
 module.exports = {
   registerOrg,
   deleteOrg,
@@ -115,4 +130,5 @@ module.exports = {
   requestToOrg,
   approvalToOrg,
   rejectedToOrg,
+  getAllOrgs,
 };
