@@ -17,6 +17,8 @@ const registerOrg = (req, res, next) => {
     description: req.body.description,
     website: req.body.website,
     approval: "pending",
+    added: [],
+    requested: [],
   });
   org
     .save()
@@ -33,10 +35,10 @@ const addToOrg =  (req,res) => {
   try {
     const orgId = req.params.id;
     const inventionId = req.body.inventionId;
-    const updatedOrg = organizationModel.findByIdAndUpdate(orgId, {
-      added: added.push(inventionId),
+    console.log(inventionId);
+    const updatedOrg = organizationModel.update({_id: orgId}, {
+      $push: {requested: inventionId},
     });
-    console.log(updatedOrg);
     if (updatedOrg) {
       res.status(200).json(updatedOrg);
     }
