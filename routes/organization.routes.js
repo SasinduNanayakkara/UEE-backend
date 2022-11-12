@@ -8,6 +8,7 @@ const {
   approvalToOrg,
   rejectedToOrg,
   getAllOrgs,
+  getOrgById,
 } = require("../controllers/organization.controller");
 
 router.post("/", registerOrg);
@@ -16,7 +17,7 @@ router.put("/request/:id", requestToOrg);
 router.put("/approval/:id", approvalToOrg);
 router.put("/rejected/:id", rejectedToOrg);
 router.get("/", getAllOrgs);
-// router.get("/:id", getOrgById);
+router.get("/:id", getOrgById);
 // router.put("/:id", updateOrg);
 // router.delete("/:id", deleteOrg);
 

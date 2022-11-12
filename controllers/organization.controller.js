@@ -123,6 +123,18 @@ const getAllOrgs = (req, res) => {
     });
 };
 
+const getOrgById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const org = await organizationModel.findOne({ _id: id });
+    if (org) {
+      res.status(200).json({ org });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
 module.exports = {
   registerOrg,
   deleteOrg,
@@ -131,4 +143,5 @@ module.exports = {
   approvalToOrg,
   rejectedToOrg,
   getAllOrgs,
+  getOrgById,
 };
