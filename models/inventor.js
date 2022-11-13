@@ -10,10 +10,10 @@ const InventorSchema = new mongoose.Schema({
         require : true,
         type : String
     },
-    // password : {
-    //     require : true,
-    //     type : String
-    // },
+    password : {
+        require : true,
+        type : String
+    },
     NIC : {
         require : true,
         type : String

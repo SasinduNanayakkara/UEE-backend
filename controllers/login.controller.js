@@ -65,6 +65,7 @@ const login = async (req, res, next) => {
 
         if (role === "inventor") {
             const inventor = await inventorModel.findOne({ username: username });
+            console.log(inventor);
             if (!inventor) {
                 return res.status(401).json({
                     message: "Auth failed",
