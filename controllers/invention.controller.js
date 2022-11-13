@@ -1,33 +1,35 @@
 var express = require("express");
-const bcrypt = require("bcrypt");
 const { isValidObjectId } = require("mongoose");
 var router = express.Router();
 var mongoose = require("mongoose");
 const InventionModel = require("../models/invention");
 const investmentsModel =require("../models/investments.model")
-
+const fs = require('fs');
 //Add Inventions
 const createInvention = (req, res, next) => {
+  // const ImageUrl = fs.readFileSync(req.image, { encoding: "base64" });
+  // console.log(ImageUrl);
   const Invention = new InventionModel({
+    inventionId: req.body.inventionId,
     inventorId: req.query.inventorId,
     title: req.body.title,
     description: req.body.description,
-    image : req.body.image,
-    date : req.body.date,
-    goal : req.body.goal,
-    currentInvestment : req.body.currentInvestment,
-    approval : 'Pending',
-    organization : req.body.organization,
-    investment : req.body.investment,
-    rate : 'like'
+    image,
+    // date : req.body.date,
+    // goal : req.body.goal,
+    // currentInvestment : req.body.currentInvestment,
+    // approval : 'Pending',
+    // organization : req.body.organization,
+    // investment : req.body.investment,
+    // rate : 'like'
   });
 
   try {
-    Invention.save();
+    const result = Invention.save();
     res.status(200).json({
       succuss: true,
-      message: "Insertion succussfull",
-      payload: {},
+      message: "Insertion successfully",
+      payload: {result},
     });
   } catch (error) {
     res.status(400).json({

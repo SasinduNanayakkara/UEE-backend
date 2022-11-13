@@ -1,4 +1,5 @@
 var express = require("express");
+const organizationModel = require("../models/organization.model");
 const orgModel = require("../models/organization.model");
 
 const registerOrg = (req, res, next) => {
@@ -16,6 +17,8 @@ const registerOrg = (req, res, next) => {
     description: req.body.description,
     website: req.body.website,
     approval: "pending",
+    added: [],
+    requested: [],
   });
   org
     .save()
@@ -28,7 +31,149 @@ const registerOrg = (req, res, next) => {
 };
 const deleteOrg = (req, res, next) => {};
 
+const addToOrg = async (req, res) => {
+  try {
+    const orgId = req.params.id;
+    const inventionId = req.body.inventionId;
+    const updatedOrg = await organizationModel.update(
+      { _id: orgId },
+      {
+        $push: { added: inventionId },
+      }
+    );
+    if (updatedOrg) {
+      res.status(200).json(updatedOrg);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+const requestToOrg = async (req, res) => {
+  try {
+    const orgId = req.params.id;
+    const inventionId = req.body.inventionId;
+    const updatedOrg = await organizationModel.update(
+      { _id: orgId },
+      {
+        $push: { requested: inventionId },
+      }
+    );
+    if (updatedOrg) {
+      res.status(200).json(updatedOrg);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+const approvalToOrg = async (req, res) => {
+  try {
+    const orgId = req.params.id;
+    const inventionId = req.body.inventionId;
+    const updatedOrg = await organizationModel.update(
+      { _id: orgId },
+      {
+        $push: { added: inventionId },
+        $pull: { requested: { $in: inventionId } },
+      }
+    );
+    if (updatedOrg) {
+      res.status(200).json(updatedOrg);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+const rejectedToOrg = async (req, res) => {
+  try {
+    const orgId = req.params.id;
+    const inventionId = req.body.inventionId;
+    const updatedOrg = await organizationModel.update(
+      { _id: orgId },
+      {
+        $pull: { requested: { $in: inventionId } },
+      }
+    );
+    if (updatedOrg) {
+      res.status(200).json(updatedOrg);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+const getAllOrgs = (req, res) => {
+  organizationModel
+    .find()
+    .then((orgs) => {
+      res.status(200).json({
+        success: true,
+        message: "Read successfuly",
+        orgs,
+      });
+    })
+    .catch((e) => {
+      res.status(400).json({ success: false, message: e.message, payload: {} });
+    });
+};
+
+const getOrgById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const org = await organizationModel.findOne({ _id: id });
+    if (org) {
+      res.status(200).json({ org });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const getRequests = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const org = await organizationModel
+      .findOne({ _id: id })
+      .populate("requested")
+      .select("requested");
+    if (org) {
+      res.status(200).json({ org });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const getAdded = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const org = await organizationModel
+      .findOne({ _id: id })
+      .populate("added")
+      .select("added");
+    if (org) {
+      res.status(200).json({ org });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
 module.exports = {
   registerOrg,
   deleteOrg,
+  addToOrg,
+  requestToOrg,
+  approvalToOrg,
+  rejectedToOrg,
+  getAllOrgs,
+  getOrgById,
+  getRequests,
+  getAdded,
 };

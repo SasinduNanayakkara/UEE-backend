@@ -56,6 +56,14 @@ const organizationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  requested: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "invention",
+  },
+  added: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "invention",
+  }
 });
 
 //Export the model
