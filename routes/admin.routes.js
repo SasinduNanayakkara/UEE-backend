@@ -1,9 +1,18 @@
-const { addAdmin, getOneAdmin, updateAdmin } = require('../controllers/admin.controller');
+const express = require("express");
+const router = express.Router();
 
-const router = require('express').Router();
+const {
+  addAdmin,
+  getOneAdmin,
+  approveOrg,
+  approveInventor,
+  approveInvestor,
+} = require("../controllers/admin.controller");
 
-router.create("/", addAdmin);
+router.post("/", addAdmin);
 router.get("/:id", getOneAdmin);
-router.put("/:id", updateAdmin);
+router.put("/org", approveOrg);
+router.put("/inventor", approveInventor);
+router.put("/investor", approveInvestor);
 
-module.export = router;
+module.exports = router;
