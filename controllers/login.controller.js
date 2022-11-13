@@ -59,7 +59,7 @@ const login = async (req, res, next) => {
             }
             res.status(200).json({
                 message: "Auth successful",
-                admin: admin,
+                org: admin,
             });
         }
 
@@ -77,7 +77,7 @@ const login = async (req, res, next) => {
             }
             res.status(200).json({
                 message: "Auth successful",
-                inventor: inventor,
+                org: inventor,
             });
         }
     }
